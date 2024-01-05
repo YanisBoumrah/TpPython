@@ -48,10 +48,32 @@ top_rated = sorted(populations, key=lambda x: x['rate'], reverse=True)[:4]
 #Attribution d'une augmentation de 0,1% a toute la population
 
 for i in populations:
-    i["rate"] *= 1.001
+    i["rate"] *= 1.01
 
 # Creation de la fonction pour tirer aleatoirement une personne dans la liste
 def random_person():
     return random.choice(populations)
 
-print(random_person())
+# ordonner dans une liste les tuple
+s = sorted([(person['name'], person['rate']) for person in populations], key=lambda x: x[1])
+
+# calcule de la mediane des rates
+def mediane():
+    if len(s) % 2 == 0:
+        return (s[len(s)//2][1] + s[len(s)//2-1][1])/2
+    else:
+        return s[len(s)//2][1]
+    
+
+# Partionnez la liste s en quatre parties distinctes
+def partition():
+    return [s[i*len(s)//4:(i+1)*len(s)//4] for i in range(4)]
+
+#calcule de la moyenne des rates
+
+def moyenne():
+    return round(sum([person['rate'] for person in populations])/len(populations),2)
+
+print (moyenne()) 
+
+print (partition())
